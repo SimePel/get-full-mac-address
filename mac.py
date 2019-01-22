@@ -11,7 +11,7 @@ def get_full_mac() -> str:
                     "k" : "sw-403-1-kc.noc.asu.ru"}
 
     if len(sys.argv) != 3:
-        print("python3 main.py [short mac] [letter of campus(m,l,d,s,k)]")
+        print("python3 mac.py [short mac] [letter of campus(m,l,d,s,k)]")
         sys.exit(1)
 
     mac = sys.argv[1]
