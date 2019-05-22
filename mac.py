@@ -20,11 +20,13 @@ def get_full_mac() -> str:
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.MissingHostKeyPolicy())
     client.connect(hostname=switch, username=username, password=password, allow_agent=False, look_for_keys=False)
-    _, stdout, _ = client.exec_command('show mac address-table | include ' + mac)
-    data = str(stdout.read())
-    rindex = data.rfind(mac)
     
-    return data[rindex-10:rindex+4]
+    _, stdout, _ = client.exec_command('show mac address-table | include ' + mac)
+    data = stdout.read().decode('utf-8')
+    if data == '':
+        return 'Мак адрес не найден'
+
+    return data.split()[1]
 
 if __name__ == "__main__":
     print(get_full_mac())
